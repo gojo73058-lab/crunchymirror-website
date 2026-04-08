@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CrunchyMirror — Free Anime Streaming</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ── PAGE LOADER ── -->
+<div id="pageLoader">
+  <div class="loader-logo">CrunchyMirror</div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+
+<!-- ══════════════════════════════════
+     NAVBAR
+══════════════════════════════════ -->
+<nav id="navbar">
+  <div class="nav-logo" data-page="home" onclick="navigateTo('home')">CrunchyMirror</div>
+
+  <ul class="nav-links">
+    <li><a data-page="home" class="active">🏠 Home</a></li>
+    <li><a data-page="trending">🔥 Trending</a></li>
+    <li><a data-page="new">🆕 New & Hot</a></li>
+    <li><a data-page="mylist">📋 My List</a></li>
+    <li><a data-page="history">⏱ History</a></li>
+    <li><a onclick="filterGenreByName('Action');navigateTo('home')">⚔️ Sub</a></li>
+    <li><a onclick="showToast('🎙 Dub section — Coming soon!');navigateTo('home')">🎙 Dub</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <div class="search-wrap collapsed" style="position:relative" id="searchWrap" onclick="toggleSearchMobile(event)">
+      <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+      </svg>
+      <input type="text" id="searchInput" placeholder="Anime search karo..." onclick="event.stopPropagation()">
+      <div id="searchResults"></div>
+    </div>
+    <button class="btn-notif" onclick="showToast('🔔 Koi notification nahi')">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+      </svg>
+      <span class="notif-dot"></span>
+    </button>
+    <button class="btn-user" onclick="navigateTo('profile')">A</button>
+  </div>
+</nav>
+
+<main id="main-content">
+
+<!-- ══════════════════════════════════
+     HOME PAGE
+══════════════════════════════════ -->
+<section id="page-home" class="page-section active">
+
+  <!-- HERO -->
+  <div id="hero">
+    <div class="hero-bg-img" id="heroBg"></div>
+    <div class="hero-gradient"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="#ff6b35"><circle cx="5" cy="5" r="5"/></svg>
+        #1 Trending Now
+      </div>
+      <h1 class="hero-title" id="heroTitle">DEMON<br><span>SLAYER</span></h1>
+      <div class="hero-meta">
+        <span class="hero-rating" id="heroRating">★ 9.4</span>
+        <span id="heroYear">2024</span>
+        <span class="hero-pill" id="heroEp">S4 • EP 12</span>
+        <span id="heroGenre">Action</span>
+      </div>
+      <p class="hero-desc" id="heroDesc">Tanjiro ki nayi taaqat ke saath Hashira Training arc ka epic showdown!</p>
+      <div class="hero-btns">
+        <button class="btn-play" id="heroBtnPlay">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+          Watch Now
+        </button>
+        <button class="btn-sec" id="heroBtnList">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+          My List
+        </button>
+        <button class="btn-sec" onclick="showToast('ℹ️ More info loading...')">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          Info
+        </button>
+      </div>
+    </div>
+    <div class="hero-dots" id="heroDots"></div>
+  </div>
+
+  <!-- STATS BANNER -->
+  <div class="stats-banner" style="margin-top:2rem">
+    <div class="stats-banner-left">
+      <h3>🔥 This Week's Hottest</h3>
+      <p>Sabse zyada dekhe jaane wale anime right now</p>
+      <div class="genre-quick-tags">
+        <span class="gqt" onclick="filterGenreByName('Action')">⚔️ Action</span>
+        <span class="gqt" onclick="filterGenreByName('Fantasy')">🧙 Fantasy</span>
+        <span class="gqt" onclick="filterGenreByName('Romance')">💕 Romance</span>
+        <span class="gqt" onclick="filterGenreByName('Isekai')">🌀 Isekai</span>
+        <span class="gqt" onclick="filterGenreByName('Sports')">🏆 Sports</span>
+        <span class="gqt" onclick="filterGenreByName('Horror')">👹 Horror</span>
+        <span class="gqt" onclick="filterGenreByName('Sci-Fi')">🚀 Sci-Fi</span>
+      </div>
+    </div>
+    <div class="stats-group">
+      <div class="stat"><div class="stat-num">2.4M</div><div class="stat-label">Viewers</div></div>
+      <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Anime</div></div>
+      <div class="stat"><div class="stat-num">4K</div><div class="stat-label">Quality</div></div>
+      <div class="stat"><div class="stat-num">Free</div><div class="stat-label">Forever</div></div>
+    </div>
+  </div>
+
+  <!-- CONTINUE WATCHING -->
+  <div class="cm-section">
+    <div class="section-header">
+      <div class="section-title">▶ Continue Watching</div>
+      <span class="see-all" onclick="navigateTo('history')">See All →</span>
+    </div>
+    <div class="scroll-row" id="continueRow"></div>
+  </div>
+
+  <!-- GENRE FILTER + MAIN GRID -->
+  <div class="cm-section" style="padding-bottom:0">
+    <div class="genre-pills" id="genrePills">
+      <span class="genre-pill active" onclick="filterGenre('All',this)">All</span>
+      <span class="genre-pill" onclick="filterGenre('Action',this)">⚔️ Action</span>
+      <span class="genre-pill" onclick="filterGenre('Romance',this)">💕 Romance</span>
+      <span class="genre-pill" onclick="filterGenre('Isekai',this)">🌀 Isekai</span>
+      <span class="genre-pill" onclick="filterGenre('Horror',this)">👹 Horror</span>
+      <span class="genre-pill" onclick="filterGenre('Slice of Life',this)">🌸 Slice of Life</span>
+      <span class="genre-pill" onclick="filterGenre('Sports',this)">🏆 Sports</span>
+      <span class="genre-pill" onclick="filterGenre('Sci-Fi',this)">🚀 Sci-Fi</span>
+      <span class="genre-pill" onclick="filterGenre('Fantasy',this)">🧙 Fantasy</span>
+    </div>
+  </div>
+
+  <div class="cm-section">
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab(this,'popular')">🔥 Popular</div>
+      <div class="tab" onclick="switchTab(this,'new')">🆕 New</div>
+      <div class="tab" onclick="switchTab(this,'top')">⭐ Top Rated</div>
+      <div class="tab" onclick="switchTab(this,'seasonal')">🌸 Seasonal</div>
+    </div>
+    <div class="anime-grid" id="mainGrid"></div>
+  </div>
+
+  <!-- TOP 10 -->
+  <div class="cm-section">
+    <div class="section-header">
+      <div class="section-title">🏆 Top 10 This Week</div>
+    </div>
+    <div class="top10-grid" id="top10Grid"></div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════
+     TRENDING PAGE
+══════════════════════════════════ -->
+<section id="page-trending" class="page-section">
+  <div class="cm-section" style="padding-top:5rem">
+    <div class="section-header">
+      <div class="section-title">🔥 Trending Anime</div>
+    </div>
+    <div class="genre-pills">
+      <span class="genre-pill active" onclick="filterGenre('All',this)">All</span>
+      <span class="genre-pill" onclick="filterGenre('Action',this)">⚔️ Action</span>
+      <span class="genre-pill" onclick="filterGenre('Fantasy',this)">🧙 Fantasy</span>
+      <span class="genre-pill" onclick="filterGenre('Isekai',this)">🌀 Isekai</span>
+      <span class="genre-pill" onclick="filterGenre('Romance',this)">💕 Romance</span>
+      <span class="genre-pill" onclick="filterGenre('Sports',this)">🏆 Sports</span>
+      <span class="genre-pill" onclick="filterGenre('Horror',this)">👹 Horror</span>
+    </div>
+    <div class="anime-grid" id="trendingGrid"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     NEW & HOT PAGE
+══════════════════════════════════ -->
+<section id="page-new" class="page-section">
+  <div class="cm-section" style="padding-top:5rem">
+    <div class="section-header">
+      <div class="section-title">🆕 New &amp; Hot</div>
+    </div>
+    <div class="anime-grid" id="newGrid"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     MY LIST PAGE
+══════════════════════════════════ -->
+<section id="page-mylist" class="page-section">
+  <div class="cm-section" style="padding-top:5rem">
+    <div class="section-header">
+      <div class="section-title">📋 My List</div>
+    </div>
+    <div class="anime-grid" id="myListGrid"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     HISTORY PAGE
+══════════════════════════════════ -->
+<section id="page-history" class="page-section">
+  <div class="cm-section" style="padding-top:5rem">
+    <div class="section-header">
+      <div class="section-title">⏱ Watch History</div>
+      <span class="see-all" onclick="STATE.watchHistory=[];localStorage.removeItem('cm_history');renderHistory();showToast('History clear ho gayi!')">Clear All</span>
+    </div>
+    <div id="historyList"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SETTINGS PAGE
+══════════════════════════════════ -->
+<section id="page-settings" class="page-section">
+  <div class="cm-section" style="padding-top:5rem">
+    <div class="section-header">
+      <div class="section-title">⚙️ Settings</div>
+    </div>
+    <div>Settings coming soon...</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     PROFILE PAGE
+══════════════════════════════════ -->
+<section id="page-profile" class="page-section">
+  <div class="cm-section" style="padding-top:5rem">
+    <div class="section-header">
+      <div class="section-title">👤 Profile</div>
+    </div>
+    <div>Demo</div>
+  </div>
+</section>
+
+</main>
+
+<!-- ══════════════════════════════════
+     VIDEO MODAL
+══════════════════════════════════ -->
+<div id="modalOverlay" onclick="closeOutside(event)">
+  <div class="modal-box">
+    <div class="modal-close" onclick="closeModal()">✕</div>
+
+    <!-- Player -->
+    <div class="modal-player">
+      <div class="player-bg" id="playerBg"></div>
+      <div class="player-center">
+        <video id="videoPlayer" class="player-video" playsinline></video>
+        <img class="player-thumb" id="playerThumb" src="" alt="anime thumbnail">
+        <div class="play-big" onclick="togglePlay()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+        </div>
+        <div class="now-text" id="nowText">Play karne ke liye click karo</div>
+      </div>
+      <div class="vid-ctrl-bar">
+        <div class="prog-track" onclick="seekVideo(event)">
+          <div class="prog-filled" id="progBar" style="width:0%"></div>
+        </div>
+        <div class="ctrl-row">
+          <button class="ctrl-btn" onclick="prevEp()" title="Previous">⏮</button>
+          <button class="ctrl-btn" id="ppBtn" onclick="togglePlay()">▶</button>
+          <button class="ctrl-btn" onclick="nextEp()" title="Next">⏭</button>
+          <div class="volume-control" title="Volume">
+            <span style="font-size: 1.1rem; cursor: pointer;" onclick="toggleVolumeMute()">🔊</span>
+            <input type="range" id="volumeSlider" min="0" max="100" value="80" 
+              style="width: 80px; cursor: pointer; vertical-align: middle; margin: 0 6px;" 
+              oninput="setVolume(this.value)">
+            <span id="volLabel" style="font-size: 0.75rem; min-width: 28px;">80%</span>
+          </div>
+          <button class="ctrl-btn" onclick="showToast('⚙️ Quality: Auto 1080p')">⚙️</button>
+          <button class="ctrl-btn" onclick="showToast('🌐 Sub/Dub toggle')">🌐</button>
+          <button class="ctrl-btn" onclick="showToast('📋 Playlist')">☰</button>
+          <span class="ctrl-time" id="timeLabel">00:00 / 24:00</span>
+          <button class="ctrl-btn" onclick="toggleFullscreen()">⛶</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div class="modal-body">
+      <div class="modal-main-title" id="mTitle">Demon Slayer</div>
+      <div class="modal-info-row">
+        <span>⭐ <b id="mRating">9.4</b></span>
+        <span>📅 <span id="mYear">2024</span></span>
+        <span>🎬 <span id="mStudio">ufotable</span></span>
+        <span>📺 <span id="mStatus">Ongoing</span></span>
+        <span class="m-genre" id="mGenre">Action</span>
+        <button style="background:linear-gradient(135deg,#ff6b35,#ff3d6e);border:none;color:#fff;padding:4px 14px;border-radius:10px;font-weight:800;font-size:0.78rem;cursor:pointer;font-family:'Nunito',sans-serif"
+          onclick="toggleMyList(STATE.modal.animeIdx)">＋ My List</button>
+      </div>
+      <div class="modal-desc" id="mDesc"></div>
+      <!-- Season Selector -->
+      <div class="modal-section-label">Seasons</div>
+      <div class="season-tabs" id="seasonTabs"></div>
+
+      <!-- Episodes -->
+      <div class="modal-section-label">Episodes</div>
+      <div class="ep-list" id="epList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div>
+    <div class="footer-logo">CrunchyMirror</div>
+    <div style="color:var(--muted);font-size:0.75rem;margin-top:4px">Free Anime Streaming</div>
+  </div>
+  <div class="footer-links">
+    <a onclick="showToast('ℹ About Us')">About</a>
+    <a onclick="showToast('📜 Terms of Service')">Terms</a>
+    <a onclick="showToast('🔒 Privacy Policy')">Privacy</a>
+    <a onclick="showToast('📧 support@crunchymirror.com')">Contact</a>
+    <a onclick="showToast('❓ FAQ')">FAQ</a>
+    <a onclick="showToast('💬 discord.gg/crunchymirror')">Discord</a>
+    <a onclick="showToast('📱 Android App — Coming soon!')">App</a>
+  </div>
+  <div class="footer-right">
+    <div style="font-size:0.8rem;color:var(--muted)">Made with ❤️ for anime fans</div>
+    <div class="footer-copy">© 2024 CrunchyMirror — All rights reserved</div>
+  </div>
+</footer>
+
+<canvas id="snowCanvas"></canvas>
+
+<div id="customCursor">🗡️</div>
+
+<!-- Mobile Bottom Navigation -->
+<nav id="mobile-bottom-nav">
+  <button class="mobile-nav-btn" data-page="home">
+    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+    </svg>
+    Home
+  </button>
+  <button class="mobile-nav-btn" id="mobile-search-btn" onclick="toggleMobileSearch()">
+    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+    </svg>
+    Search
+  </button>
+  <button class="mobile-nav-btn" data-page="mylist">
+    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path d="M12 5v14M5 12h14"/>
+    </svg>
+    Added
+  </button>
+  <div class="mobile-nav-selector">
+    <select id="pageSelector" onchange="navigateTo(this.value)">
+      <option value="home">Home</option>
+      <option value="mylist">Added</option>
+      <option value="settings">Settings</option>
+      <option value="profile">Profile</option>
+    </select>
+  </div>
+  <button class="mobile-nav-btn" data-page="settings">
+    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+      <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+    </svg>
+    Settings
+  </button>
+  <button class="mobile-nav-btn" data-page="profile">
+    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+    </svg>
+    Profile
+  </button>
+</nav>
+
+<script src="anime-data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script src="app.js"></script>
+<script>
+/* ── Extra page navigation rendering ── */
+const _origNav = navigateTo;
+window.navigateTo = function(page) {
+  _origNav(page);
+  const ANIME_DB_ref = typeof ANIME_DB !== 'undefined' ? ANIME_DB : [];
+  if (page === 'trending') {
+    renderTrendingGrid();
+  }
+  if (page === 'new') {
+    const grid = document.getElementById('newGrid');
+    if (grid && ANIME_DB_ref.length) {
+      const newAnime = ANIME_DB_ref.filter(a=>a.badge==='NEW' || a.year >= 2024);
+      grid.innerHTML = newAnime.map((a)=>{
+        const idx = ANIME_DB_ref.indexOf(a);
+        return `<div class="anime-card fade-up" onclick="openModal(${idx})">
+          <div class="card-thumb">
+            <img class="card-img" src="${a.image}" alt="${a.title}" loading="lazy"
+              onerror="this.src='https://via.placeholder.com/175x240/151522/ff6b35?text=${encodeURIComponent(a.title)}'">
+            <div class="card-ov"><div class="play-circle"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+            <span class="card-badge">NEW</span>
+            <span class="card-ep">EP ${a.seasons.at(-1).eps}</span>
+          </div>
+          <div class="card-info">
+            <div class="card-title">${a.title}</div>
+            <div class="card-meta"><span class="card-rating">★ ${a.rating}</span><span class="card-gtag">${a.genre}</span></div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+  }
+};
+</script>
+</body>
+</html>
